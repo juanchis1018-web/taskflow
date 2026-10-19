@@ -1,0 +1,44 @@
+digraph G {
+  graph [rankdir=LR, nodesep=0.18, ranksep=0.5, bgcolor="white", pad=0.2, dpi=200];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=11, margin="0.12,0.06"];
+  edge [color="#475569", fontname="DejaVu Sans", fontsize=9, fontcolor="#334155"];
+  root [label="Pruebas de\nsoftware", fillcolor="#1e3a8a", fontcolor="white", fontsize=14];
+
+  a [label="Según el NIVEL", fillcolor="#bfdbfe"];
+  b [label="Según el OBJETIVO", fillcolor="#bbf7d0"];
+  c [label="Según la TÉCNICA", fillcolor="#fde68a"];
+  d [label="Según la EJECUCIÓN", fillcolor="#fbcfe8"];
+  e [label="Según el MOMENTO", fillcolor="#ddd6fe"];
+  root -> {a b c d e} [label="se clasifican"];
+
+  a1 [label="Unitarias\ncomponentes aislados (pytest, JUnit)", fillcolor="#eff6ff"];
+  a2 [label="Integración\nmódulos combinados, API + BD", fillcolor="#eff6ff"];
+  a3 [label="Sistema\nflujo completo en staging", fillcolor="#eff6ff"];
+  a4 [label="Aceptación (UAT)\ncriterios del cliente", fillcolor="#eff6ff"];
+  a -> {a1 a2 a3 a4};
+
+  b1 [label="Funcionales\nlo que el sistema HACE", fillcolor="#f0fdf4"];
+  b2 [label="No funcionales", fillcolor="#f0fdf4"];
+  b -> {b1 b2};
+  b21 [label="Rendimiento · carga · estrés\n(JMeter, Locust)", fillcolor="#f0fdf4"];
+  b22 [label="Seguridad\n(OWASP ZAP, inyección, XSS)", fillcolor="#f0fdf4"];
+  b23 [label="Usabilidad · accesibilidad\ncompatibilidad · portabilidad", fillcolor="#f0fdf4"];
+  b2 -> {b21 b22 b23};
+
+  c1 [label="Caja negra\nparticiones, valores límite,\ntablas de decisión", fillcolor="#fffbeb"];
+  c2 [label="Caja blanca\ncobertura de sentencias\ny de ramas", fillcolor="#fffbeb"];
+  c3 [label="Caja gris\nconoce la BD/API\npero prueba la UI", fillcolor="#fffbeb"];
+  c -> {c1 c2 c3};
+
+  d1 [label="Manuales\nexploratorias, ad hoc", fillcolor="#fdf2f8"];
+  d2 [label="Automatizadas\nSelenium, Cypress, Playwright", fillcolor="#fdf2f8"];
+  d -> {d1 d2};
+
+  e1 [label="Humo (smoke)\nverificación rápida del build", fillcolor="#f5f3ff"];
+  e2 [label="Regresión\ncambios no rompen lo existente", fillcolor="#f5f3ff"];
+  e3 [label="Estáticas\nrevisiones, inspecciones, linters", fillcolor="#f5f3ff"];
+  e -> {e1 e2 e3};
+
+  g [label="Gestión de pruebas\nPlan · Casos · Ejecución\nDefectos · Informe\n(JIRA + Xray, TestRail)", fillcolor="#fee2e2", shape=note];
+  root -> g [label="se organizan con", style=dashed];
+}
