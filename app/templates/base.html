@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}TaskFlow{% endblock %}</title>
+  <style>
+    :root{--bg:#f4f6fb;--card:#fff;--ink:#1d2433;--muted:#667085;--pri:#2f5bea;--ok:#127a4b;--err:#b42318;--line:#e4e7ef}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+    header{background:#1d2433;color:#fff;padding:14px 28px;display:flex;justify-content:space-between;align-items:center}
+    header a{color:#cfd8ff;margin-left:18px;text-decoration:none}
+    header .brand{font-weight:700;font-size:20px;color:#fff;margin:0}
+    main{max-width:960px;margin:28px auto;padding:0 16px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px;margin-bottom:18px}
+    label{display:block;font-size:14px;margin:10px 0 4px;color:var(--muted)}
+    input,select,textarea{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:6px;font-size:15px}
+    button,.btn{background:var(--pri);color:#fff;border:0;padding:9px 16px;border-radius:6px;font-size:14px;cursor:pointer;text-decoration:none;display:inline-block}
+    button.danger{background:var(--err)} button.ghost{background:#eef1f8;color:var(--ink)}
+    .flash{padding:10px 14px;border-radius:6px;margin-bottom:12px}
+    .flash.ok{background:#e7f6ee;color:var(--ok)} .flash.error{background:#fdecea;color:var(--err)}
+    table{width:100%;border-collapse:collapse} th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);font-size:14px}
+    .tag{padding:2px 8px;border-radius:10px;font-size:12px} .alta{background:#fdecea;color:var(--err)} .media{background:#fff4e0;color:#9a5b00} .baja{background:#e7f6ee;color:var(--ok)}
+    .done td.t{text-decoration:line-through;color:var(--muted)}
+    .stats{display:flex;gap:14px} .stat{flex:1;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+    .stat b{display:block;font-size:26px}
+    .row{display:flex;gap:12px} .row>*{flex:1}
+    form.inline{display:inline}
+    .auth{max-width:420px;margin:40px auto}
+  </style>
+</head>
+<body>
+<header>
+  <p class="brand">TaskFlow</p>
+  <nav>
+    {% if g.user %}
+      <span>Hola, <strong id="who">{{ g.user['username'] }}</strong></span>
+      <a href="{{ url_for('dashboard') }}">Tareas</a>
+      <a href="{{ url_for('profile') }}">Perfil</a>
+      {% if g.user['role'] == 'admin' %}<a href="{{ url_for('admin_users') }}">Usuarios</a>{% endif %}
+      <a href="{{ url_for('logout') }}" id="logout">Salir</a>
+    {% else %}
+      <a href="{{ url_for('login') }}">Ingresar</a>
+      <a href="{{ url_for('register') }}">Registrarse</a>
+    {% endif %}
+  </nav>
+</header>
+<main>
+  {% for cat, msg in get_flashed_messages(with_categories=true) %}
+    <div class="flash {{ cat }}" role="alert">{{ msg }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</main>
+</body>
+</html>

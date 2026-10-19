@@ -1,0 +1,47 @@
+{% extends "base.html" %}{% block title %}Mis tareas · TaskFlow{% endblock %}
+{% block content %}
+<div class="stats">
+  <div class="stat">Total<b id="st-total">{{ stats.total }}</b></div>
+  <div class="stat">Pendientes<b id="st-pending">{{ stats.pending }}</b></div>
+  <div class="stat">Completadas<b id="st-done">{{ stats.completed }}</b></div>
+  <div class="stat">Avance<b id="st-pct">{{ stats.percent }}%</b></div>
+</div>
+<div class="card" style="margin-top:18px">
+  <h3>Nueva tarea</h3>
+  <form method="post" action="{{ url_for('task_new') }}">
+    <div class="row">
+      <div><label for="title">Título</label><input id="title" name="title"></div>
+      <div><label for="priority">Prioridad</label>
+        <select id="priority" name="priority"><option value="baja">Baja</option><option value="media" selected>Media</option><option value="alta">Alta</option></select></div>
+      <div><label for="due_date">Fecha límite</label><input id="due_date" name="due_date" type="date"></div>
+    </div>
+    <label for="description">Descripción</label><textarea id="description" name="description" rows="2"></textarea>
+    <p><button type="submit" id="btn-add">Agregar tarea</button></p>
+  </form>
+</div>
+<div class="card">
+  <form method="get" class="row" style="align-items:end">
+    <div><label for="q">Buscar por título</label><input id="q" name="q" value="{{ q }}"></div>
+    <div style="flex:0"><button class="ghost" type="submit">Buscar</button></div>
+  </form>
+  <table id="tasks">
+    <thead><tr><th>Tarea</th><th>Prioridad</th><th>Fecha límite</th><th>Estado</th><th></th></tr></thead>
+    <tbody>
+    {% for t in tasks %}
+      <tr class="{{ 'done' if t['done'] }}" data-id="{{ t['id'] }}">
+        <td class="t">{{ t['title'] }}</td>
+        <td><span class="tag {{ t['priority'] }}">{{ t['priority'] }}</span></td>
+        <td>{{ t['due_date'] or '—' }}</td>
+        <td>{{ 'Completada' if t['done'] else 'Pendiente' }}</td>
+        <td style="white-space:nowrap">
+          <form class="inline" method="post" action="{{ url_for('task_toggle', task_id=t['id']) }}"><button class="ghost toggle">{{ 'Reabrir' if t['done'] else 'Completar' }}</button></form>
+          <form class="inline" method="post" action="{{ url_for('task_delete', task_id=t['id']) }}"><button class="danger delete">Eliminar</button></form>
+        </td>
+      </tr>
+    {% else %}
+      <tr><td colspan="5" id="empty">No hay tareas registradas.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

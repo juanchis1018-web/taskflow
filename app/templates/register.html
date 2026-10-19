@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block title %}Registro · TaskFlow{% endblock %}
+{% block content %}
+<div class="card auth">
+  <h2>Crear cuenta</h2>
+  <form method="post">
+    <label for="username">Usuario</label><input id="username" name="username" value="{{ request.form.username }}" required>
+    <label for="email">Correo electrónico</label><input id="email" name="email" type="email" value="{{ request.form.email }}" required>
+    <label for="password">Contraseña (mín. 8, mayúscula, minúscula y número)</label><input id="password" name="password" type="password" required>
+    <p><button type="submit" id="btn-register">Registrarse</button></p>
+  </form>
+</div>
+{% endblock %}
