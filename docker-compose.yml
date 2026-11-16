@@ -1,0 +1,28 @@
+# Despliegue de TaskFlow: Nginx (proxy inverso, puerto 80) -> Gunicorn/Flask (puerto 8000) -> SQLite (volumen)
+services:
+  app:
+    build: .
+    container_name: taskflow-app
+    environment:
+      SECRET_KEY: ${SECRET_KEY:-cambie-esta-clave-en-produccion}
+      DATABASE_PATH: /data/taskflow.sqlite
+    volumes:
+      - taskflow-data:/data
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  web:
+    image: nginx:1.27-alpine
+    container_name: taskflow-nginx
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+    volumes:
+      - ./deploy/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./app/static:/srv/static:ro
+    restart: unless-stopped
+
+volumes:
+  taskflow-data:
