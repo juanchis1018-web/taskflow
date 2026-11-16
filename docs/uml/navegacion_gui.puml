@@ -1,0 +1,29 @@
+@startuml navegacion_gui
+title Mapa de navegación de la interfaz gráfica - TaskFlow
+skinparam dpi 170
+skinparam defaultFontName DejaVu Sans
+skinparam shadowing false
+skinparam state {
+  BackgroundColor #EEF2FF
+  BorderColor #1E3A8A
+}
+[*] --> Login : GET /
+state "Inicio de sesión\n/login" as Login
+state "Registro\n/register" as Registro
+state "Zona autenticada" as Auth {
+  state "Tablero de tareas\n/dashboard\n--\nEstadísticas · Nueva tarea\nBúsqueda · Lista de tareas" as Dash
+  state "Mi perfil\n/profile\n--\nCorreo · Contraseña\nEliminar cuenta" as Perfil
+  state "Administración\n/admin/users\n(solo rol admin)" as Admin
+  Dash --> Perfil : menú "Perfil"
+  Perfil --> Dash : menú "Tareas"
+  Dash --> Admin : menú "Usuarios"
+  Admin --> Dash : menú "Tareas"
+  Dash --> Dash : crear / completar /\neliminar / buscar
+}
+Login --> Registro : "Regístrese"
+Registro --> Login : registro exitoso
+Registro --> Registro : datos inválidos (400)
+Login --> Login : credenciales\nincorrectas (401)
+Login --> Dash : credenciales válidas
+Auth --> Login : "Salir" / eliminar cuenta
+@enduml

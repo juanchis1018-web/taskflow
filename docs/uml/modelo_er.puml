@@ -1,0 +1,29 @@
+@startuml modelo_er
+title Modelo entidad-relación - Base de datos TaskFlow
+skinparam dpi 170
+skinparam defaultFontName DejaVu Sans
+skinparam shadowing false
+hide circle
+skinparam linetype ortho
+entity "users" as users {
+  * id : INTEGER <<PK>>
+  --
+  * username : TEXT <<UNIQUE>> (3-20)
+  * email : TEXT <<UNIQUE>>
+  * password_hash : TEXT (scrypt)
+  * role : TEXT CHECK ('user','admin')
+  * created_at : TIMESTAMP
+}
+entity "tasks" as tasks {
+  * id : INTEGER <<PK>>
+  --
+  * user_id : INTEGER <<FK>> ON DELETE CASCADE
+  * title : TEXT (1-100)
+  * description : TEXT
+  * priority : TEXT CHECK ('baja','media','alta')
+  * done : INTEGER (0/1)
+    due_date : TEXT (AAAA-MM-DD)
+  * created_at : TIMESTAMP
+}
+users ||--o{ tasks : "tiene"
+@enduml

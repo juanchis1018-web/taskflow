@@ -1,0 +1,68 @@
+@startuml despliegue
+title Diagrama de despliegue UML - TaskFlow v1.1
+skinparam dpi 170
+skinparam defaultFontName DejaVu Sans
+skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam node {
+  BackgroundColor #EEF2FF
+  BorderColor #1E3A8A
+}
+skinparam artifact {
+  BackgroundColor #FFFFFF
+  BorderColor #475569
+}
+skinparam database {
+  BackgroundColor #ECFDF5
+  BorderColor #047857
+}
+skinparam component {
+  BackgroundColor #FEF3C7
+  BorderColor #B45309
+}
+
+node "<<device>>\nPC / Celular del usuario" as cliente {
+  node "<<executionEnvironment>>\nNavegador web\n(Chrome, Edge, Firefox)" as nav {
+    artifact "Vistas HTML5 + CSS3\n(Jinja2 renderizado)" as vistas
+    artifact "Cookie de sesión\n(HttpOnly, SameSite=Lax)" as cookie
+  }
+}
+
+node "<<device>>\nServidor Linux (VPS / nube)\nUbuntu 24.04 LTS" as servidor {
+  node "<<executionEnvironment>>\nDocker Engine + Docker Compose" as docker {
+    node "<<container>>\ntaskflow-nginx\nNginx 1.27" as nginx {
+      artifact "nginx.conf\n(proxy inverso)" as nconf
+      artifact "/static\n(favicon, recursos)" as estaticos
+    }
+    node "<<container>>\ntaskflow-app\nPython 3.12 + Gunicorn (3 workers)" as appn {
+      component "Aplicación Flask\n(Controladores / rutas)" as flask
+      component "Capa de servicios\n(services.py)" as serv
+      component "Validaciones\n(validators.py)" as val
+      component "API REST\n/api/tasks · /api/stats" as api
+      artifact "wsgi.py" as wsgi
+      flask ..> serv : usa
+      api ..> serv : usa
+      serv ..> val : usa
+    }
+    node "<<volume>>\ntaskflow-data" as vol {
+      database "taskflow.sqlite\n(users, tasks)" as bd
+    }
+  }
+}
+
+node "<<device>>\nEquipo del desarrollador\nWindows 11" as dev {
+  node "<<executionEnvironment>>\nPython 3.11 + Git" as devenv {
+    artifact "Código fuente\n(app/, tests/)" as src
+    component "pytest + Playwright\n(62 pruebas)" as pruebas
+  }
+}
+
+cloud "<<node>>\nGitHub\n(repositorio remoto)" as github
+
+nav -- nginx : <<protocol>>\nHTTP/HTTPS\npuerto 80 / 443
+nginx -- appn : <<protocol>>\nHTTP (proxy_pass)\npuerto 8000
+appn -- vol : <<protocol>>\nE/S de archivo\n(SQL, sqlite3)
+dev -- github : <<protocol>>\ngit push\nHTTPS
+github -- servidor : <<protocol>>\ngit pull /\ndocker compose build
+
+@enduml

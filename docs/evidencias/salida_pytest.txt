@@ -1,0 +1,88 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.16, pytest-9.1.1, pluggy-1.7.0 -- /usr/bin/python3
+rootdir: taskflow
+configfile: pytest.ini
+testpaths: tests
+plugins: anyio-4.15.1, metadata-3.1.1, cov-7.1.0, html-4.2.0
+collecting ... collected 62 items
+
+tests/e2e/test_e2e.py::test_cp_e01_flujo_completo_usuario PASSED         [  1%]
+tests/e2e/test_e2e.py::test_cp_e02_login_fallido_muestra_mensaje PASSED  [  3%]
+tests/integration/test_api.py::test_cp_i11_api_requiere_autenticacion PASSED [  4%]
+tests/integration/test_api.py::test_cp_i12_api_crud_completo PASSED      [  6%]
+tests/integration/test_api.py::test_cp_i13_api_datos_invalidos PASSED    [  8%]
+tests/integration/test_api.py::test_cp_i14_api_recurso_inexistente PASSED [  9%]
+tests/integration/test_api.py::test_cp_i15_health_check PASSED           [ 11%]
+tests/integration/test_auth_flow.py::test_cp_i01_registro_exitoso PASSED [ 12%]
+tests/integration/test_auth_flow.py::test_cp_i02_registro_con_datos_invalidos PASSED [ 14%]
+tests/integration/test_auth_flow.py::test_cp_i03_login_correcto_redirige_al_tablero PASSED [ 16%]
+tests/integration/test_auth_flow.py::test_cp_i04_login_incorrecto PASSED [ 17%]
+tests/integration/test_auth_flow.py::test_cp_i05_ruta_protegida_sin_sesion PASSED [ 19%]
+tests/integration/test_auth_flow.py::test_cp_i06_crear_completar_eliminar_tarea PASSED [ 20%]
+tests/integration/test_auth_flow.py::test_cp_i07_buscar_tareas PASSED    [ 22%]
+tests/integration/test_auth_flow.py::test_cp_i08_editar_perfil PASSED    [ 24%]
+tests/integration/test_auth_flow.py::test_cp_i09_eliminar_cuenta PASSED  [ 25%]
+tests/integration/test_auth_flow.py::test_cp_i10_logout PASSED           [ 27%]
+tests/performance/test_performance.py::test_cp_r01_listado_con_500_tareas_bajo_300ms PASSED [ 29%]
+tests/performance/test_performance.py::test_cp_r02_100_peticiones_secuenciales PASSED [ 30%]
+tests/security/test_security.py::test_cp_s01_usuario_no_accede_a_tareas_ajenas PASSED [ 32%]
+tests/security/test_security.py::test_cp_s02_usuario_estandar_no_entra_a_admin PASSED [ 33%]
+tests/security/test_security.py::test_cp_s03_admin_si_entra PASSED       [ 35%]
+tests/security/test_security.py::test_cp_s04_inyeccion_sql_en_login PASSED [ 37%]
+tests/security/test_security.py::test_cp_s05_inyeccion_sql_en_busqueda PASSED [ 38%]
+tests/security/test_security.py::test_cp_s06_xss_escapado PASSED         [ 40%]
+tests/security/test_security.py::test_cp_s07_contrasena_no_se_guarda_en_claro PASSED [ 41%]
+tests/security/test_security.py::test_cp_s08_cabeceras_y_cookie PASSED   [ 43%]
+tests/unit/test_scripts.py::test_cp_u17_seed_y_export PASSED             [ 45%]
+tests/unit/test_services.py::test_cp_u10_registro_guarda_hash PASSED     [ 46%]
+tests/unit/test_services.py::test_cp_u11_registro_duplicado PASSED       [ 48%]
+tests/unit/test_services.py::test_cp_u12_autenticacion PASSED            [ 50%]
+tests/unit/test_services.py::test_cp_u13_estadisticas PASSED             [ 51%]
+tests/unit/test_services.py::test_cp_u14_orden_por_prioridad PASSED      [ 53%]
+tests/unit/test_services.py::test_cp_u15_eliminar_usuario_elimina_tareas PASSED [ 54%]
+tests/unit/test_services.py::test_cp_u16_actualizar_perfil PASSED        [ 56%]
+tests/unit/test_validators.py::test_cp_u01_usuario_valido[abc] PASSED    [ 58%]
+tests/unit/test_validators.py::test_cp_u01_usuario_valido[juan_sebastian] PASSED [ 59%]
+tests/unit/test_validators.py::test_cp_u01_usuario_valido[User2026] PASSED [ 61%]
+tests/unit/test_validators.py::test_cp_u02_usuario_invalido[] PASSED     [ 62%]
+tests/unit/test_validators.py::test_cp_u02_usuario_invalido[ab] PASSED   [ 64%]
+tests/unit/test_validators.py::test_cp_u02_usuario_invalido[xxxxxxxxxxxxxxxxxxxxx] PASSED [ 66%]
+tests/unit/test_validators.py::test_cp_u02_usuario_invalido[juan perez] PASSED [ 67%]
+tests/unit/test_validators.py::test_cp_u02_usuario_invalido[juan-perez] PASSED [ 69%]
+tests/unit/test_validators.py::test_cp_u02_usuario_invalido[\xf1and\xfa] PASSED [ 70%]
+tests/unit/test_validators.py::test_cp_u03_correo_normalizado PASSED     [ 72%]
+tests/unit/test_validators.py::test_cp_u04_correo_invalido[] PASSED      [ 74%]
+tests/unit/test_validators.py::test_cp_u04_correo_invalido[juan] PASSED  [ 75%]
+tests/unit/test_validators.py::test_cp_u04_correo_invalido[juan@] PASSED [ 77%]
+tests/unit/test_validators.py::test_cp_u04_correo_invalido[@x.com] PASSED [ 79%]
+tests/unit/test_validators.py::test_cp_u04_correo_invalido[juan@x] PASSED [ 80%]
+tests/unit/test_validators.py::test_cp_u04_correo_invalido[a b@x.com] PASSED [ 82%]
+tests/unit/test_validators.py::test_cp_u05_contrasena_debil[Ab1-m\xednimo 8] PASSED [ 83%]
+tests/unit/test_validators.py::test_cp_u05_contrasena_debil[abcdefg1-may\xfascula] PASSED [ 85%]
+tests/unit/test_validators.py::test_cp_u05_contrasena_debil[ABCDEFG1-min\xfascula] PASSED [ 87%]
+tests/unit/test_validators.py::test_cp_u05_contrasena_debil[Abcdefgh-n\xfamero] PASSED [ 88%]
+tests/unit/test_validators.py::test_cp_u06_contrasena_fuerte PASSED      [ 90%]
+tests/unit/test_validators.py::test_cp_u07_tarea_valida PASSED           [ 91%]
+tests/unit/test_validators.py::test_cp_u08_tarea_invalida[-media-None] PASSED [ 93%]
+tests/unit/test_validators.py::test_cp_u08_tarea_invalida[xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-media-None] PASSED [ 95%]
+tests/unit/test_validators.py::test_cp_u08_tarea_invalida[Ok-urgente-None] PASSED [ 96%]
+tests/unit/test_validators.py::test_cp_u08_tarea_invalida[Ok-baja-01/11/2026] PASSED [ 98%]
+tests/unit/test_validators.py::test_cp_u09_valor_limite_titulo PASSED    [100%]
+
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.13.16-final-0 _______________
+
+Name                   Stmts   Miss  Cover   Missing
+----------------------------------------------------
+app/__init__.py          164      8    95%   80, 141-142, 149, 173-174, 235-236
+app/db.py                 22      2    91%   57-58
+app/services.py           77      0   100%
+app/validators.py         39      0   100%
+scripts/__init__.py        0      0   100%
+scripts/export_db.py      41      3    93%   51, 61, 93
+scripts/seed_demo.py      28      7    75%   47-52, 66
+----------------------------------------------------
+TOTAL                    371     20    95%
+Coverage HTML written to dir docs/evidencias/coverage_html
+- Generated html report: file://taskflow/docs/evidencias/reporte_pruebas.html -
+============================= 62 passed in 14.07s ==============================

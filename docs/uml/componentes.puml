@@ -1,0 +1,32 @@
+@startuml componentes
+title Arquitectura por capas (patrón MVC) - TaskFlow
+skinparam dpi 170
+skinparam defaultFontName DejaVu Sans
+skinparam shadowing false
+package "Presentación (Vista)" {
+  [Plantillas Jinja2\nbase, login, register,\ndashboard, profile, admin] as V
+  [CSS adaptable\n(media queries)] as CSS
+}
+package "Control" {
+  [Rutas web Flask\n/login /dashboard /profile ...] as C
+  [API REST JSON\n/api/tasks /api/stats /health] as A
+  [Decoradores\nlogin_required / admin_required] as D
+}
+package "Modelo / Negocio" {
+  [services.py\nusuarios y tareas] as S
+  [validators.py\nreglas de datos] as VA
+}
+package "Datos" {
+  [db.py\nconexión y esquema] as DB
+  database "SQLite" as SQL
+}
+V --> C
+CSS -- V
+C --> D
+A --> D
+C --> S
+A --> S
+S --> VA
+S --> DB
+DB --> SQL
+@enduml

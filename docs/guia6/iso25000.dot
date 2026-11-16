@@ -1,0 +1,25 @@
+digraph G {
+  graph [rankdir=LR, nodesep=0.16, ranksep=0.45, bgcolor="white", pad=0.15, dpi=220];
+  node [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=11, penwidth=1.1, margin="0.12,0.06"];
+  edge [fontname="DejaVu Sans", fontsize=9, color="#475569", fontcolor="#334155"];
+  root [label="ISO/IEC 25000:2014\nSQuaRE\nRequisitos y Evaluación\nde Calidad del Producto\nde Software", fillcolor="#1e3a8a", fontcolor="white", fontsize=13];
+  ctx  [label="CONTEXTO\nSustituye y unifica\nISO/IEC 9126 (modelo) e\nISO/IEC 14598 (evaluación)", fillcolor="#e0e7ff"];
+  imp  [label="IMPORTANCIA\nLenguaje común de calidad\nRequisitos medibles\nEvaluación objetiva\nBase para certificar producto", fillcolor="#e0e7ff"];
+  root -> ctx [label="surge de"];
+  root -> imp [label="aporta"];
+  d0 [label="2500n · GESTIÓN DE LA CALIDAD\n25000 Guía de SQuaRE\n25001 Planificación y gestión", fillcolor="#fde68a"];
+  d1 [label="2501n · MODELO DE CALIDAD\n25010 Calidad del producto y en uso\n25011 Calidad de servicios TI\n25012 Calidad de datos", fillcolor="#bbf7d0"];
+  d2 [label="2502n · MEDICIÓN\n25020 Marco de referencia de medición\n25021 Elementos de medida (QME)\n25022 Medición de calidad en uso\n25023 Medición de calidad del producto\n25024 Medición de calidad de datos", fillcolor="#bae6fd"];
+  d3 [label="2503n · REQUISITOS\n25030 Requisitos de calidad", fillcolor="#fbcfe8"];
+  d4 [label="2504n · EVALUACIÓN\n25040 Modelo de referencia\n25041 Guía para evaluadores\n25042 Módulos de evaluación\n25045 Recuperabilidad", fillcolor="#ddd6fe"];
+  d5 [label="25050–25099 · EXTENSIONES\n25051 Productos listos para usar (RUSP)\n2506n Formato común de usabilidad (CIF)", fillcolor="#fed7aa"];
+  cls [label="CLASIFICACIÓN\n5 divisiones +\nextensiones", fillcolor="#f1f5f9"];
+  root -> cls [label="se clasifica en"];
+  cls -> {d0 d1 d2 d3 d4 d5};
+  c1 [label="8 características (25010:2011)\nAdecuación funcional\nEficiencia de desempeño\nCompatibilidad · Usabilidad\nFiabilidad · Seguridad\nMantenibilidad · Portabilidad", fillcolor="#dcfce7"];
+  c3 [label="15 características de datos\nInherentes: exactitud, completitud,\nconsistencia, credibilidad, actualidad\nDependientes del sistema:\ndisponibilidad, portabilidad...", fillcolor="#dcfce7"];
+  c2 [label="Métricas = f(QME)\nX = A / B  (0 ≤ X ≤ 1)", fillcolor="#e0f2fe"];
+  d1 -> c1 [label="25010 define"];
+  d1 -> c3 [label="25012 define"];
+  d2 -> c2 [label="calcula"];
+}
