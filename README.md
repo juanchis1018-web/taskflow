@@ -2,6 +2,7 @@
 
 **Asignaturas:** Estándares y Métricas de Calidad de Software · Ingeniería Web
 **Autor:** Juan Sebastián Muñoz Melo · Código 1034277244
+link video youtube: https://youtu.be/ZO2UbT28iIo 
 
 Aplicación web con base de datos para gestionar tareas: registro e inicio de sesión, tareas con
 prioridad y fecha límite, indicadores de avance, perfil, roles de usuario y administrador, API REST
