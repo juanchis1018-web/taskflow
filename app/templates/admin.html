@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block title %}Usuarios · TaskFlow{% endblock %}
+{% block content %}
+<div class="card"><h2>Usuarios registrados</h2>
+<table><thead><tr><th>ID</th><th>Usuario</th><th>Correo</th><th>Rol</th><th>Creado</th></tr></thead><tbody>
+{% for u in users %}<tr><td>{{ u['id'] }}</td><td>{{ u['username'] }}</td><td>{{ u['email'] }}</td><td>{{ u['role'] }}</td><td>{{ u['created_at'] }}</td></tr>{% endfor %}
+</tbody></table></div>
+{% endblock %}

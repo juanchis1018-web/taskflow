@@ -1,0 +1,7 @@
+__pycache__/
+instance/
+.pytest_cache/
+.coverage
+*.sqlite
+!database/taskflow_demo.sqlite
+.venv/

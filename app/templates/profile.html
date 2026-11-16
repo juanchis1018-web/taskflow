@@ -1,0 +1,16 @@
+{% extends "base.html" %}{% block title %}Perfil · TaskFlow{% endblock %}
+{% block content %}
+<div class="card" style="max-width:520px">
+  <h2>Mi perfil</h2>
+  <p>Usuario: <strong>{{ g.user['username'] }}</strong> · Rol: {{ g.user['role'] }}</p>
+  <form method="post">
+    <label for="email">Correo electrónico</label><input id="email" name="email" type="email" value="{{ g.user['email'] }}" required>
+    <label for="new_password">Nueva contraseña (opcional)</label><input id="new_password" name="new_password" type="password">
+    <p><button type="submit" id="btn-save">Guardar cambios</button></p>
+  </form>
+  <hr>
+  <form method="post" action="{{ url_for('profile_delete') }}">
+    <button class="danger" id="btn-delete-account">Eliminar mi cuenta</button>
+  </form>
+</div>
+{% endblock %}
